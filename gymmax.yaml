@@ -1,0 +1,41 @@
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  labels: 
+    app: gymmax
+  name: gymmax-deployment
+spec: 
+  replicas: 2
+  selector: 
+    matchLabels: 
+      app: gymmax
+  template: 
+    metadata: 
+      labels: 
+        app: gymmax
+    spec: 
+      containers: 
+        - 
+          image: "mylandmax/kubwebtest:v2"
+          imagePullPolicy: Always
+          name: gymmax
+          ports: 
+            - 
+              containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gymmax-service
+  labels:
+    app: gymmax-service
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: gymmax
