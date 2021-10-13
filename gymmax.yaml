@@ -1,28 +1,28 @@
---- 
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
-  labels: 
-    app: gymmax
-  name: gymmax-deployment
-spec: 
-  replicas: 2
-  selector: 
-    matchLabels: 
+metadata:
+  name: gymmax
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
       app: gymmax
-  template: 
-    metadata: 
-      labels: 
+  template:
+    metadata:
+      labels:
         app: gymmax
-    spec: 
-      containers: 
-        - 
-          image: "mylandmax/kubwebtest:v2"
-          imagePullPolicy: Always
-          name: gymmax
-          ports: 
-            - 
-              containerPort: 80
+    spec:
+      containers:
+      - name: gymmax
+        image: mylandmax/kubwebtest:v2
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+          # 1000m is 1 core. 1 node heeft 1 core.
+          # 5 pods met 250m kan dan ook niet. Pod wordt niet aangemaakt en blijft pending.
+            cpu: "10m"
 ---
 apiVersion: v1
 kind: Service
@@ -39,3 +39,16 @@ spec:
     targetPort: 80
   selector:
     app: gymmax
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gymmax-autoscale
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gymmax
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
