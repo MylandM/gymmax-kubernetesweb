@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gymmax
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gymmax
+  template:
+    metadata:
+      labels:
+        app: gymmax
+    spec:
+      containers:
+      - name: gymmax
+        image: mylandmax/kubwebtest:v2
+        ports:
+        - containerPort: 80
