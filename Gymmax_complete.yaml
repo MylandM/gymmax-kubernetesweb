@@ -29,7 +29,7 @@ kind: Service
 metadata:
   name: service-gymmax
   labels:
-    app: gymmax-service
+    app: service-gymmax
 spec:
   type: LoadBalancer
   ports:
