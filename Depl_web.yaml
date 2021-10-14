@@ -20,6 +20,6 @@ spec:
         - containerPort: 80
         resources:
           requests:
-          # 1000m is 1 core. 1 node heeft 1 core.
-          # 5 pods met 250m kan dan ook niet. Pod wordt niet aangemaakt en blijft pending.
-            cpu: "10m"
+          # 1000 milicore = 1 core. 1 node has 1 core.
+          # For that reason, 5 pods with 250 milicore isn't possible on 1 node. The pod remains pending. 
+            cpu: "250m"
