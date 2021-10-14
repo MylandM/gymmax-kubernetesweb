@@ -8,5 +8,5 @@ spec:
     kind: Deployment
     name: gymmax
   minReplicas: 1
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 50
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: 80
