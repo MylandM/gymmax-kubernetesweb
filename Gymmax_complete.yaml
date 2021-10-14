@@ -27,7 +27,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: gymmax-service
+  name: service-gymmax
   labels:
     app: gymmax-service
 spec:
