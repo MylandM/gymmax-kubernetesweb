@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: gymmax
-        image: mylandmax/kubwebtest:v2
+        image: mylandmax/kubwebtest:v3
         ports:
         - containerPort: 80
         resources:
